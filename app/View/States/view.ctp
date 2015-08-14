@@ -1,0 +1,71 @@
+<div class="states view">
+<h2><?php echo __('State'); ?></h2>
+	<dl>
+		<dt><?php echo __('Id'); ?></dt>
+		<dd>
+			<?php echo h($state['State']['id']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('State Name'); ?></dt>
+		<dd>
+			<?php echo h($state['State']['state_name']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('created'); ?></dt>
+		<dd>
+			<?php echo h($state['State']['created']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('modified'); ?></dt>
+		<dd>
+			<?php echo h($state['State']['modified']); ?>
+			&nbsp;
+		</dd>
+	</dl>
+</div>
+<div class="actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
+		<li><?php echo $this->Html->link(__('Edit State'), array('action' => 'edit', $state['State']['id'])); ?> </li>
+		<li><?php echo $this->Form->postLink(__('Delete State'), array('action' => 'delete', $state['State']['id']), array(), __('Are you sure you want to delete # %s?', $state['State']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('List States'), array('action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New State'), array('action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Districts'), array('controller' => 'districts', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New District'), array('controller' => 'districts', 'action' => 'add')); ?> </li>
+	</ul>
+</div>
+<div class="related">
+	<h3><?php echo __('Related Districts'); ?></h3>
+	<?php if (!empty($state['District'])): ?>
+	<table cellpadding = "0" cellspacing = "0">
+	<tr>
+		<th><?php echo __('Id'); ?></th>
+		<th><?php echo __('State Id'); ?></th>
+		<th><?php echo __('District Name'); ?></th>
+		<th><?php echo __('created'); ?></th>
+		<th><?php echo __('modified'); ?></th>
+		<th class="actions"><?php echo __('Actions'); ?></th>
+	</tr>
+	<?php foreach ($state['District'] as $district): ?>
+		<tr>
+			<td><?php echo $district['id']; ?></td>
+			<td><?php echo $district['state_id']; ?></td>
+			<td><?php echo $district['district_name']; ?></td>
+			<td><?php echo $district['created']; ?></td>
+			<td><?php echo $district['modified']; ?></td>
+			<td class="actions">
+				<?php echo $this->Html->link(__('View'), array('controller' => 'districts', 'action' => 'view', $district['id'])); ?>
+				<?php echo $this->Html->link(__('Edit'), array('controller' => 'districts', 'action' => 'edit', $district['id'])); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'districts', 'action' => 'delete', $district['id']), array(), __('Are you sure you want to delete # %s?', $district['id'])); ?>
+			</td>
+		</tr>
+	<?php endforeach; ?>
+	</table>
+<?php endif; ?>
+
+	<div class="actions">
+		<ul>
+			<li><?php echo $this->Html->link(__('New District'), array('controller' => 'districts', 'action' => 'add')); ?> </li>
+		</ul>
+	</div>
+</div>

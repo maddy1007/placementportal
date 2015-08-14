@@ -1,0 +1,20 @@
+<div class="sectors form">
+<?php echo $this->Form->create('Sector',array('enctype' => 'multipart/form-data')); ?>
+	<fieldset>
+		<legend><?php echo __('Add Sector'); ?></legend>
+	<?php
+		echo $this->Form->input('sector_name');
+		echo $this->Form->input('image', array('type' => 'file'));
+		//echo $this->Form->input('Created');
+		//echo $this->Form->input('Modified');
+	?>
+	</fieldset>
+<?php echo $this->Form->end(__('Submit')); ?>
+</div>
+<div class="actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
+		<li><?php echo $this->Html->link(__('Upload CSV'), array('action' => 'uploadExcel')); ?></li>
+		<li><?php echo $this->Html->link(__('List Sectors'), array('action' => 'index')); ?></li>
+	</ul>
+</div>

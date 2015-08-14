@@ -1,0 +1,62 @@
+<div class="sdmsData index">
+	<h2><?php echo __('SDMS Data'); ?></h2>
+	<table cellpadding="0" cellspacing="0">
+	<thead>
+	<tr>
+			<th><?php echo $this->Paginator->sort('candidate_id','Candidate Id'); ?></th>
+			<th><?php echo $this->Paginator->sort('candidate_name','Candidate Name'); ?></th>
+			<th><?php echo $this->Paginator->sort('gender','Gender'); ?></th>
+			<th><?php echo 'State'; ?></th>
+			<th><?php echo 'District'; ?></th>
+			<th><?php echo 'Sector'; ?></th>
+			<th><?php echo $this->Paginator->sort('created','Created'); ?></th>
+			<th class="actions"><?php echo __('Actions'); ?></th>
+	</tr>
+	</thead>
+	<tbody>
+	<?php foreach ($sdmsDatas as $sdmsData): ?>
+	<tr>
+		<td><?php echo h($sdmsData['SdmsData']['candidate_id']); ?>&nbsp;</td>
+		<td><?php echo h($sdmsData['SdmsData']['candidate_name']); ?>&nbsp;</td>
+		<td><?php echo h($gender[$sdmsData['SdmsData']['gender']]); ?>&nbsp;</td>
+		<td><?php echo h($sdmsData['CandidateState']['state_name']); ?>&nbsp;</td>
+		<td><?php echo h($sdmsData['CandidateDistrict']['district_name']); ?>&nbsp;</td>
+		<td><?php echo h($sdmsData['Sector']['sector_name']); ?>&nbsp;</td>
+		<td><?php echo h($sdmsData['SdmsData']['created']); ?>&nbsp;</td>
+		<td class="actions">
+			<?php echo $this->Html->link(__('View'), array('action' => 'view', $sdmsData['SdmsData']['id'])); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $sdmsData['SdmsData']['id'])); ?>
+		</td>
+	</tr>
+<?php endforeach; ?>
+	</tbody>
+	</table>
+	<p>
+	<?php
+	echo $this->Paginator->counter(array(
+		'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
+	));
+	?>	</p>
+	<div class="paging">
+	<?php
+		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->numbers(array('separator' => ''));
+		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
+	?>
+	</div>
+</div>
+<div class="actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
+		<li><?php echo $this->Html->link(__('Return to Dashboard'), array('controller'=>'users','action'=>'index') ); ?></li>
+		<li><?php echo $this->Html->link(__('Add SDMS Data'), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('Upload SDMS CSV'), array('action' => 'uploadExcel')); ?></li>
+		<li><?php echo $this->Html->link(__('List States'), array('controller' => 'states', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Add State'), array('controller' => 'states', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Districts'), array('controller' => 'districts', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Add District'), array('controller' => 'districts', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Sectors'), array('controller' => 'sectors', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Add Sector'), array('controller' => 'sectors', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Logout'),  array('controller'=>'users','action'=>'logout') ); ?></li>
+	</ul>
+</div>

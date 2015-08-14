@@ -1,0 +1,93 @@
+<?php
+App::uses('Component', 'Controller');
+App::uses('HttpSocket', 'Network/Http');
+class AdminFunctionComponent extends Component  {
+
+	public $uses = array('Excel','State','EducationLevel','District','Sector');
+	
+
+	public function __construct(ComponentCollection $collection,
+		$settings = array()) {
+		parent::__construct($collection, $settings);
+	}
+	public function initialize(Controller $controller) {
+		//load required for component models
+		if ($this->uses !== false) {
+		    foreach ($this->uses as $modelClass) {
+			$controller->loadModel($modelClass);
+			$this->$modelClass = $controller->$modelClass;
+		    }
+		}
+		$this->apiUrl = Configure::read('api_key');
+	}
+	
+	public function getStateList(){
+		$link =  $this->apiUrl."states/getStateList.json"; 
+     	     	$httpSocket = new HttpSocket();
+	      	$response = $httpSocket->get($link);
+	      	$response = json_decode($response,true);	
+		return $response['States'];
+	}
+
+	function downloadFile($file){
+		if (file_exists($file)){
+			header('Content-Description: File Transfer');
+			header('Content-Type: application/octet-stream');
+			header('Content-Disposition: attachment; filename='.basename($file));
+			header('Expires: 0');
+			header('Cache-Control: must-revalidate');
+			header('Pragma: public');
+			header('Content-Length: ' . filesize($file));
+			ob_clean();
+			flush();
+			readfile($file);
+			
+		}
+		else {
+			$this->Session->setFlash('File Does Not Exist');
+			$this->redirect('upload_result/'.base64_encode($id));
+		}
+	}	
+
+	function convert_to_csv($input_array, $header, $output_file_name, $delimiter,$path){
+		 $f = fopen($output_file_name, 'w');
+		/** loop through array  */
+		fputcsv($f, $header, $delimiter);
+		foreach ($input_array as $line) {
+			/** default php csv handler **/
+			fputcsv($f, $line, $delimiter);
+		}
+		fclose($f);
+		$destination = $path.$output_file_name;	
+		rename($output_file_name, $destination);
+		return $destination;
+		//move_uploaded_file($output_file_name,$destination);
+	}
+
+	//Corresponding function only to be used for CSV upload feature.
+
+	function getDistrictId($name=''){
+		$district = $this->District->find('first',array('conditions'=>array('district_name'=>$name)));
+		return @$district['District'];
+	}
+
+	function getLevelId($name=''){
+		$level = $this->EducationLevel->find('first',array('conditions'=>array('education_level_name'=>$name)));
+		return @$level['EducationLevel']['id'];
+	}
+
+	function getSectorId($name=''){
+		$sector = $this->Sector->find('first',array('conditions'=>array('sector_name'=>$name)));
+		return @$sector['Sector']['id'];
+	}
+
+	function getSectorNameById($id=''){
+		$sector = $this->Sector->find('first',array('conditions'=>array('id'=>$id)));
+		return @$sector['Sector']['sector_name'];
+	}
+    
+	function getStateId($name=''){
+		$state = $this->State->find('first',array('conditions'=>array('state_name'=>$name)));
+		return @$state['State']['id'];
+	}
+}

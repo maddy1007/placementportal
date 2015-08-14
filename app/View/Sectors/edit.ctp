@@ -1,0 +1,22 @@
+<div class="sectors form">
+<?php echo $this->Form->create('Sector',array('enctype' => 'multipart/form-data')); ?>
+	<fieldset>
+		<legend><?php echo __('Edit Sector'); ?></legend>
+	<?php
+		echo $this->Form->input('id',array('type'=>'hidden'));
+		echo $this->Form->input('sector_name');
+		echo $this->Form->input('image', array('type' => 'file'));
+		//echo $this->Form->input('Created');
+		//echo $this->Form->input('Modified');
+	?>
+	</fieldset>
+<?php echo $this->Form->end(__('Submit')); ?>
+</div>
+<div class="actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
+
+		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Sector.id')), array(), __('Are you sure you want to delete # %s?', $this->Form->value('Sector.id'))); ?></li>
+		<li><?php echo $this->Html->link(__('List Sectors'), array('action' => 'index')); ?></li>
+	</ul>
+</div>

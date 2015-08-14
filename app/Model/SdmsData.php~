@@ -1,0 +1,158 @@
+<?php
+App::uses('AppModel', 'Model');
+/**
+ * District Model
+ *
+ */
+class SdmsData extends AppModel {
+
+/**
+ * Use table
+ *
+ * @var mixed False or table name
+ */
+	public $useTable = 'sdms_data';
+
+/**
+ * Primary key field
+ *
+ * @var string
+ */
+	public $primaryKey = 'id';
+
+/**
+ * Validation rules
+ *
+ * @var array
+ */
+	public $validate = array(
+		'candidate_id' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'account_name' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty')
+			),
+		),
+		'candidate_name' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty')
+			),
+		),
+		'gender' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty')
+			),
+		),
+		'contact_no' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty')
+			),
+		),
+		'dob' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty')
+			),
+		),
+		'candidate_state_id' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty')
+			),
+		),
+		'candidate_district_id' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty')
+			),
+		),
+		'centre_state_id' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty')
+			),
+		),
+		'centre_district_id' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty')
+			),
+		),
+		'education_level' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty')
+			),
+		)
+	);
+	public $hasOne = array(
+			'CandidateState' => array(
+				'className' => 'State',
+				'foreignKey' => 'candidate_state_id',
+				'dependent' => false,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			),
+			'CandidateDistrict' => array(
+				'className' => 'District',
+				'foreignKey' => 'candidate_district_id',
+				'dependent' => false,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			),
+			'CentreState' => array(
+				'className' => 'State',
+				'foreignKey' => 'centre_state_id',
+				'dependent' => false,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			),
+			'CentreDistrict' => array(
+				'className' => 'State',
+				'foreignKey' => 'centre_district_id',
+				'dependent' => false,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			),
+			'EducationLevel' => array(
+				'className' => 'EducationLevel',
+				'foreignKey' => 'education_level',
+				'dependent' => false,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			)
+		);
+
+}

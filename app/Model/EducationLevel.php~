@@ -1,0 +1,27 @@
+<?php
+App::uses('AppModel', 'Model');
+/**
+ * EducationLevel Model
+ *
+ */
+class EducationLevel extends AppModel {
+
+/**
+ * Use table
+ *
+ * @var mixed False or table name
+ */
+	public $useTable = 'education_levels';
+
+/**
+ * Primary key field
+ *
+ * @var string
+ */
+	public $primaryKey = 'id';
+
+	function getLevelId($name=''){
+		$level = $this->find('first',array('conditions'=>array('education_level_name'=>$name)));
+		return @$level['EducationLevel']['id'];
+	}
+}

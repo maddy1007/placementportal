@@ -1,0 +1,105 @@
+<?php
+App::uses('AppController', 'Controller');
+/**
+ * EducationLevels Controller
+ *
+ * @property EducationLevel $EducationLevel
+ * @property PaginatorComponent $Paginator
+ * @property SessionComponent $Session
+ */
+class EducationLevelsController extends AppController {
+
+/**
+ * Components
+ *
+ * @var array
+ */
+	public $components = array('Paginator', 'Session');
+
+/**
+ * index method
+ *
+ * @return void
+ */
+	public function index() {
+		$this->EducationLevel->recursive = 0;
+		$this->set('educationLevels', $this->Paginator->paginate());
+	}
+
+/**
+ * view method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function view($id = null) {
+		if (!$this->EducationLevel->exists($id)) {
+			throw new NotFoundException(__('Invalid education level'));
+		}
+		$options = array('conditions' => array('EducationLevel.' . $this->EducationLevel->primaryKey => $id));
+		$this->set('educationLevel', $this->EducationLevel->find('first', $options));
+	}
+
+/**
+ * add method
+ *
+ * @return void
+ */
+	public function add() {
+		if ($this->request->is('post')) {
+			$this->EducationLevel->create();
+			if ($this->EducationLevel->save($this->request->data)) {
+				$this->Session->setFlash(__('The education level has been saved.'));
+				return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The education level could not be saved. Please, try again.'));
+			}
+		}
+	}
+
+/**
+ * edit method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function edit($id = null) {
+		if (!$this->EducationLevel->exists($id)) {
+			throw new NotFoundException(__('Invalid education level'));
+		}
+		if ($this->request->is(array('post', 'put'))) {
+			if ($this->EducationLevel->save($this->request->data)) {
+				$this->Session->setFlash(__('The education level has been saved.'));
+				return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The education level could not be saved. Please, try again.'));
+			}
+		} else {
+			$options = array('conditions' => array('EducationLevel.' . $this->EducationLevel->primaryKey => $id));
+			$this->request->data = $this->EducationLevel->find('first', $options);
+		}
+	}
+
+/**
+ * delete method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function delete($id = null) {
+		$this->EducationLevel->id = $id;
+		if (!$this->EducationLevel->exists()) {
+			throw new NotFoundException(__('Invalid education level'));
+		}
+		$this->request->allowMethod('post', 'delete');
+		if ($this->EducationLevel->delete()) {
+			$this->Session->setFlash(__('The education level has been deleted.'));
+		} else {
+			$this->Session->setFlash(__('The education level could not be deleted. Please, try again.'));
+		}
+		return $this->redirect(array('action' => 'index'));
+	}
+}
